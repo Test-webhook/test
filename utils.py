@@ -33,6 +33,7 @@ NUMBER_OF_COMMITS = "number_of_commits"
 COMMITS = "commits"
 
 
+#stores data in dictionary
 def store_data_in_dictionary(event_data, pr_dict):
     if PULL_REQUEST in event_data and ACTION in event_data:
         if event_data[ACTION] == OPENED:
@@ -51,6 +52,7 @@ def store_data_in_dictionary(event_data, pr_dict):
         return pr_dict
 
 
+#store the pr open data in dictionary
 def store_pr_open_data_in_dictionary(event_data, pr_dict):
     pr_data = fetch_pr_data_using_github_api(event_data[PULL_REQUEST][URL])
     key = generate_key(pr_data)
@@ -73,6 +75,7 @@ def store_pr_open_data_in_dictionary(event_data, pr_dict):
     return pr_dict
 
 
+#store pr review requested data  in dictinoary
 def store_pr_review_requested_data_in_dictionary(event_data, pr_dict):
     pr_data = fetch_pr_data_using_github_api(event_data[PULL_REQUEST][URL])
     key = generate_key(pr_data)
@@ -81,6 +84,7 @@ def store_pr_review_requested_data_in_dictionary(event_data, pr_dict):
     return pr_dict
 
 
+#store synchronised data in dictionary
 def store_pr_synchronized_data_in_dictionary(event_data, pr_dict):
     pr_data = fetch_pr_data_using_github_api(event_data[PULL_REQUEST][URL])
     key = generate_key(pr_data)
@@ -92,6 +96,7 @@ def store_pr_synchronized_data_in_dictionary(event_data, pr_dict):
     return pr_dict
 
 
+#store pr closed data in dictionary
 def store_pr_closed_data_in_dictionary(event_data, pr_dict):
     pr_data = fetch_pr_data_using_github_api(event_data[PULL_REQUEST][URL])
     reviews_data = fetch_pr_data_using_github_api(event_data[PULL_REQUEST][URL] + "/" + REVIEWS)
@@ -104,6 +109,7 @@ def store_pr_closed_data_in_dictionary(event_data, pr_dict):
     return pr_dict
 
 
+#fetch pr data using github api
 def fetch_pr_data_using_github_api(url):
     # sending get request and saving the response as response object
     resPull = requests.get(url=url, headers=HEADER)
@@ -113,6 +119,7 @@ def fetch_pr_data_using_github_api(url):
     return pr_data
 
 
+#function generates the key 
 def generate_key(pr_data):
     prNumber = pr_data[NUMBER]
     repoName = pr_data[BASE][REPO][NAME]
